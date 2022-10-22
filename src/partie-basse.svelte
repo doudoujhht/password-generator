@@ -10,15 +10,18 @@
 	let nombre = false;
 	let symbols = false;
 	let valeur = 8;
+	let chaine = '';
+	let password = '';
 	export let note = 0;
 	const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	const lower = 'abcdefghijklmnopqrstuvwxyz';
 	const numbers = '0123456789';
 	const Character = '#|!$%&?&*()_-=+';
-	const generer = () => {
+
+	function TrouverChaine() {
 		note = 0;
-		let chaine = '';
-		let password = '';
+		chaine = '';
+		password = '';
 
 		if (majuscule) {
 			chaine += upper;
@@ -43,11 +46,15 @@
 		} else if (valeur < 8) {
 			note = 2;
 		}
-		console.log(note);
-
 		if (chaine == '') {
 			alert('selectionnez au moins un type de caractere');
+			return false;
 		} else {
+			return true;
+		}
+	}
+	const generer = () => {
+		if (TrouverChaine()) {
 			for (let i = 0; i < valeur; i++) {
 				password += chaine.charAt(
 					Math.floor(Math.random() * chaine.length)
