@@ -1,9 +1,9 @@
 <script>
-
+    export let value=0;
 
 </script>
 
-<input type="range" value="50"/>
+<input type="range" bind:value={value} min="1" max="20" step="1"/>
 
 <style lang="css">
 input[type="range"] {
