@@ -1,11 +1,12 @@
 <script>
 	import PartieHaute from './partie-haute.svelte';
 	import PartieBasse from './partie-basse.svelte';
+	let password = '';
 </script>
 
 <div class="w-[95%] sm:w-3/4 md:w-[70%] lg:w-3/6 xl:w-2/5 2xl:w-1/3">
-	<PartieHaute />
-	<PartieBasse />
+	<PartieHaute bind:texte={password} />
+	<PartieBasse bind:mdp={password} />
 </div>
 
 <style>

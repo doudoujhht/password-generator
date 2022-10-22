@@ -4,26 +4,57 @@
 	import Input2 from './input2.svelte';
 	import Button from './button.svelte';
 
+	export let mdp;
 	let majuscule = false;
 	let miniscule = false;
 	let nombre = false;
 	let symbols = false;
-    let valeur=14;
-	$:{
-		console.log(valeur)
-	}
-
-	let text = 'Include Uppercase Letters';
-
-	const test=()=>{
-		console.log(valeur)
-		if(majuscule){
-			console.log("majuscule")
-		}
-	}
+	let valeur = 8;
+	export let note = 0;
+	const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	const lower = 'abcdefghijklmnopqrstuvwxyz';
+	const numbers = '0123456789';
+	const Character = '#|!$%&?&*()_-=+';
 	const generer = () => {
-		const Character =
-			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#|!$%&?&*()_-=+';
+		note = 0;
+		let chaine = '';
+		let password = '';
+
+		if (majuscule) {
+			chaine += upper;
+			note += 0.5;
+		}
+		if (miniscule) {
+			chaine += lower;
+			note += 0.5;
+		}
+		if (nombre) {
+			chaine += numbers;
+			note += 0.5;
+		}
+		if (symbols) {
+			chaine += Character;
+			note += 0.5;
+		}
+		note += valeur / 10;
+		note = Math.round(note);
+		if (valeur <= 4) {
+			note = 1;
+		} else if (valeur < 8) {
+			note = 2;
+		}
+		console.log(note);
+
+		if (chaine == '') {
+			alert('selectionnez au moins un type de caractere');
+		} else {
+			for (let i = 0; i < valeur; i++) {
+				password += chaine.charAt(
+					Math.floor(Math.random() * chaine.length)
+				);
+			}
+			mdp = password;
+		}
 	};
 </script>
 
@@ -36,12 +67,12 @@
 	</div>
 
 	<div>
-		<Input bind:value={valeur}/>
-		<Checkbox texte={text} bind:cocher={majuscule} />
+		<Input bind:value={valeur} />
+		<Checkbox texte="Include Uppercase Letters" bind:cocher={majuscule} />
 		<Checkbox texte="Include Lowercase Letters" bind:cocher={miniscule} />
 		<Checkbox texte="Include Numbers" bind:cocher={nombre} />
 		<Checkbox texte="Include Symbols" bind:cocher={symbols} />
-		<Input2 />
-		<Button on:click={test}/>
+		<Input2 bind:note />
+		<Button on:click={generer} />
 	</div>
 </div>
